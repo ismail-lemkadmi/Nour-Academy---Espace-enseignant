@@ -1,0 +1,26 @@
+{
+  "name": "nour-academy---espace-enseignant",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ismail-lemkadmi/Nour-Academy---Espace-enseignant.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ismail-lemkadmi/Nour-Academy---Espace-enseignant/issues"
+  },
+  "homepage": "https://github.com/ismail-lemkadmi/Nour-Academy---Espace-enseignant#readme",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.5"
+  }
+}
