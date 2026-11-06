@@ -1,5 +1,6 @@
 import { eleves, groupes } from "./data.js";
 import { initialiserAjoutEleve } from "./ajout-eleve.js";
+import { actualiserBilan } from "./bilan.js";
 
 
 const listeEleves = document.querySelector("#liste-eleves");
@@ -189,6 +190,7 @@ function filtrerEleves() {
     });
 
     afficherEleves(resultats);
+    actualiserBilan(groupeChoisi, calculerMoyenne);
 }
 
 // US3 : remplacement de la seule ligne concernée
@@ -201,6 +203,8 @@ function actualiserLigne(ligne, eleve, action) {
     );
 
     bouton.focus();
+
+    actualiserBilan(filtreGroupe.value, calculerMoyenne);
 }
 
 // US3 : un seul écouteur pour les boutons des élèves
