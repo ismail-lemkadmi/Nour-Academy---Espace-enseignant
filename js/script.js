@@ -1,8 +1,20 @@
-import { eleves } from "./data.js";
+import { eleves, groupes } from "./data.js";
 
 const listeEleves = document.querySelector("#liste-eleves");
 const compteurEleves = document.querySelector("#compteur");
+const filtreGroupe = document.querySelector("#filtre-groupe");
+const champRecherche = document.querySelector("#recherche");
+const messageAucunResultat = document.querySelector("#aucun-resultat");
 
+// US2 : création des options du menu
+groupes.forEach(function (groupe) {
+    const option = document.createElement("option");
+    option.value = groupe.id;
+    option.textContent = groupe.nom;
+    filtreGroupe.append(option);
+});
+
+// US1 : calcul de la moyenne
 function additionner(somme, note) {
     return somme + note;
 }
@@ -16,7 +28,7 @@ function calculerMoyenne(notes) {
     return sommeNotes / notes.length;
 }
 
-
+// US1 : création d'une ligne
 function creerLigne(eleve) {
     const ligne = document.createElement("li");
     ligne.classList.add(
@@ -59,15 +71,37 @@ function creerLigne(eleve) {
     return ligne;
 }
 
-
-
- function afficherEleves() {
-    const lignes = eleves.map(creerLigne);
+// Affichage des résultats et mise à jour du compteur
+function afficherEleves(elevesAAfficher = eleves) {
+    const lignes = elevesAAfficher.map(creerLigne);
 
     listeEleves.replaceChildren();
     listeEleves.append(...lignes);
 
-    const unite = eleves.length === 1 ? " élève" : " élèves";
-    compteurEleves  .textContent = eleves.length + unite;
+    const unite = elevesAAfficher.length === 1 ? " élève" : " élèves";
+    compteurEleves.textContent = elevesAAfficher.length + unite;
+    messageAucunResultat.hidden = elevesAAfficher.length > 0;
 }
-afficherEleves();
+
+// US2 : combinaison du groupe et de la recherche
+function filtrerEleves() {
+    const groupeChoisi = filtreGroupe.value;
+    const recherche = champRecherche.value.trim().toLowerCase();
+
+    const resultats = eleves.filter(function (eleve) {
+        const correspondAuGroupe =
+            groupeChoisi === "" || String(eleve.groupeId) === groupeChoisi;
+
+        const nomComplet = (eleve.prenom + " " + eleve.nom).toLowerCase();
+        const correspondALaRecherche = nomComplet.includes(recherche);
+
+        return correspondAuGroupe && correspondALaRecherche;
+    });
+
+    afficherEleves(resultats);
+}
+
+filtreGroupe.addEventListener("change", filtrerEleves);
+champRecherche.addEventListener("input", filtrerEleves);
+
+filtrerEleves();
