@@ -1,4 +1,6 @@
 import { eleves, groupes } from "./data.js";
+import { initialiserAjoutEleve } from "./ajout-eleve.js";
+
 
 const listeEleves = document.querySelector("#liste-eleves");
 const compteurEleves = document.querySelector("#compteur");
@@ -271,3 +273,9 @@ filtreGroupe.addEventListener("change", filtrerEleves);
 champRecherche.addEventListener("input", filtrerEleves);
 
 filtrerEleves();
+
+initialiserAjoutEleve(function (nouvelEleve) {
+    filtreGroupe.value = String(nouvelEleve.groupeId);
+    champRecherche.value = "";
+    filtrerEleves();
+});
